@@ -118,12 +118,43 @@ static void RunVariant(int n)
     {
         case 1:
             {
-                var s = new Variant01_LibraryBad();
-                var book = new Variant01_Book { T = "C# Basics", A = "Sharp", I = "ISBN-1", On = false };
-                var reader = new Variant01_Reader { N = "Anna", C = 1 };
-                Console.WriteLine($"Issue: {s.Issue(reader, book, 14)}");
+                var library = new Variant01_LibraryBad();
+                var book1 = new Variant01_Book { T = "C# Basics", A = "Sharp", I = "ISBN-1", On = false };
+                var reader1 = new Variant01_Reader { N = "Anna", C = 1 };
+                Console.WriteLine("1. Выдача на 14 дней: " + library.Issue(reader1, book1, 14));
+
+                Console.WriteLine("2. Повторная выдача той же книги: " + library.Issue(reader1, book1, 5));
+
+                var book2 = new Variant01_Book { T = "Other", A = "Author", I = "ISBN-2", On = false };
+                var reader2 = new Variant01_Reader { N = "Bob", C = 2 };
+                Console.WriteLine("3. Выдача с 0 днями: " + library.Issue(reader2, book2, 0));
+
+                Console.WriteLine("4. Выдача с null-читателем: " + library.Issue(null, book1, 14));
+
+                var book3 = new Variant01_Book { T = "Advanced C#", A = "Sharp", I = "ISBN-3", On = false };
+                var reader3 = new Variant01_Reader { N = "Charlie", C = 3 };
+
+                Console.WriteLine("5a. Выдача книги3 на 14 дней: " + library.Issue(reader3, book3, 14));
+
+                var issuedField = typeof(Variant01_LibraryBad).GetField("issued",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                var issuedDict = issuedField.GetValue(library) as Dictionary<int, string>;
+                if (issuedDict != null && issuedDict.ContainsKey(reader3.C))
+                {
+                    var record = issuedDict[reader3.C];
+                    var parts = record.Split(';');
+                    var oldDue = DateTime.Parse(parts[1]);
+                    var newDue = oldDue.AddDays(-20);
+                    issuedDict[reader3.C] = parts[0] + ";" + newDue.ToString();
+                    Console.WriteLine("   (Дата возврата искусственно изменена на 20 дней назад)");
+                }
+
+                // 5c. Возврат книги – должен вывести штраф 200 (20 дней * 10)
+                Console.WriteLine("5c. Возврат с просрочкой: " + library.Return(reader3, book3));
+
                 break;
             }
+
         case 2:
             {
                 var s = new Variant02_PharmacyBad();
