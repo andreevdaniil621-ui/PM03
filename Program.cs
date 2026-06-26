@@ -1,3 +1,7 @@
+// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using ReviewSamples.Modules;
 using ReviewSamples.Modules.Variants;
 
@@ -49,7 +53,7 @@ static void RunUserRegistrationDemo()
 
     var good = new UserRegistrationFixed();
     var result = good.Register("anna", "StrongPass1", "anna@example.com");
-    Console.WriteLine($"Fixed: {result.IsSuccess}, {result.Message}");
+    Console.WriteLine($"Fixed: {result.isSuccess}, {result.message}");
     Console.WriteLine();
 }
 
@@ -93,7 +97,7 @@ static void RunStatisticsDemo()
 
     var good = new StatisticsFixed();
     var stats = good.Calculate(numbers);
-    Console.WriteLine($"Fixed average: {stats.Average:F2}, min: {stats.Min}, max: {stats.Max}");
+    Console.WriteLine($"Fixed average: {stats.average:F2}, min: {stats.min}, max: {stats.max}");
     Console.WriteLine();
 }
 
@@ -105,7 +109,7 @@ static void RunAuthorizationDemo()
     Console.WriteLine($"Bad: {bad.Login("admin", "123")}");
 
     var good = new AuthorizationFixed();
-    Console.WriteLine($"Fixed: {good.Login("admin", "Admin123").IsSuccess}");
+    Console.WriteLine($"Fixed: {good.Login("admin", "Admin123").isSuccess}");
     Console.WriteLine();
 }
 
@@ -136,7 +140,8 @@ static void RunVariant(int n)
 
                 Console.WriteLine("5a. Выдача книги3 на 14 дней: " + library.Issue(reader3, book3, 14));
 
-                var issuedField = typeof(Variant01_LibraryBad).GetField("issued",
+                var issuedField = typeof(Variant01_LibraryBad).GetField(
+                    "issued",
                     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 var issuedDict = issuedField.GetValue(library) as Dictionary<int, string>;
                 if (issuedDict != null && issuedDict.ContainsKey(reader3.C))
@@ -163,6 +168,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Expired: {s.Exp(med, DateTime.Now)}");
                 break;
             }
+
         case 3:
             {
                 var s = new Variant03_JournalBad();
@@ -173,6 +179,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Avg(Math): {s.Avg(st, "Math")}");
                 break;
             }
+
         case 4:
             {
                 var s = new Variant04_ServiceCenterBad();
@@ -182,6 +189,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total: {s.Calc(f)}");
                 break;
             }
+
         case 5:
             {
                 var s = new Variant05_HotelBad();
@@ -189,6 +197,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Book: {s.Book(room, "Anna", DateTime.Today, DateTime.Today.AddDays(3))}");
                 break;
             }
+
         case 6:
             {
                 var s = new Variant06_RentalBad();
@@ -197,11 +206,12 @@ static void RunVariant(int n)
                     Car = new Variant06_Car { Model = "Logan", P = 2000 },
                     Days = 3,
                     Insurance = true,
-                    ChildSeat = false
+                    ChildSeat = false,
                 };
                 Console.WriteLine($"Total: {s.Calc(req)}");
                 break;
             }
+
         case 7:
             {
                 var s = new Variant07_BoxOfficeBad();
@@ -209,6 +219,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Buy: {s.Buy(show, 3, 5, "student", 20)}");
                 break;
             }
+
         case 8:
             {
                 var s = new Variant08_RestaurantBad();
@@ -217,6 +228,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total: {s.Total(o)}");
                 break;
             }
+
         case 9:
             {
                 var s = new Variant09_WarehouseBad();
@@ -225,6 +237,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Issue: {s.Issue(p, 30)}");
                 break;
             }
+
         case 10:
             {
                 var s = new Variant10_ParkingBad();
@@ -232,11 +245,12 @@ static void RunVariant(int n)
                 {
                     In = DateTime.Today.AddHours(10),
                     Out = DateTime.Today.AddHours(11).AddMinutes(30),
-                    Tariff = "day"
+                    Tariff = "day",
                 };
                 Console.WriteLine($"Price: {s.Calc(t)}");
                 break;
             }
+
         case 11:
             {
                 var s = new Variant11_ShopBad();
@@ -245,6 +259,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total: {s.Total(c, "vip")}");
                 break;
             }
+
         case 12:
             {
                 var s = new Variant12_DeliveryBad();
@@ -252,6 +267,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Fee: {s.Calc(r)}");
                 break;
             }
+
         case 13:
             {
                 var s = new Variant13_FitnessBad();
@@ -260,6 +276,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Membership ends: {m.End:yyyy-MM-dd}");
                 break;
             }
+
         case 14:
             {
                 var s = new Variant14_ClinicBad();
@@ -267,6 +284,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Book: {s.Book(d, "Ivan", DateTime.Today.AddHours(10))}");
                 break;
             }
+
         case 15:
             {
                 var s = new Variant15_VetBad();
@@ -276,11 +294,12 @@ static void RunVariant(int n)
                     D = DateTime.Today,
                     Diag = "healthy",
                     Service = "checkup",
-                    P = 1500
+                    P = 1500,
                 };
                 Console.WriteLine($"Register: {s.Register(v)}");
                 break;
             }
+
         case 16:
             {
                 var s = new Variant16_CourierBad();
@@ -288,6 +307,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Price: {s.Calc(p)}");
                 break;
             }
+
         case 17:
             {
                 var s = new Variant17_AgencyBad();
@@ -295,6 +315,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Tours found: {found.Count}");
                 break;
             }
+
         case 18:
             {
                 var s = new Variant18_AtmBad();
@@ -303,6 +324,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Balance: {s.Balance(a, "1234")}");
                 break;
             }
+
         case 19:
             {
                 var s = new Variant19_BikeRentalBad();
@@ -310,11 +332,12 @@ static void RunVariant(int n)
                 {
                     B = new Variant19_Bike { N = "B-1", Type = "mountain" },
                     Start = DateTime.Now.AddHours(-2),
-                    End = DateTime.Now
+                    End = DateTime.Now,
                 };
                 Console.WriteLine($"Price: {s.Return(r, DateTime.Now)}");
                 break;
             }
+
         case 20:
             {
                 var s = new Variant20_CompetitionBad();
@@ -322,6 +345,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Register: {s.Register(a, "adult")}");
                 break;
             }
+
         case 21:
             {
                 var s = new Variant21_InventoryBad();
@@ -330,6 +354,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Move: {s.MoveTo(e, "Sales")}");
                 break;
             }
+
         case 22:
             {
                 var s = new Variant22_ClinicBad();
@@ -337,6 +362,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Issue: {s.Issue(d, DateTime.Today.AddHours(11), "Anna")}");
                 break;
             }
+
         case 23:
             {
                 var s = new Variant23_BillingBad();
@@ -345,6 +371,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total: {s.Calc(w, e)}");
                 break;
             }
+
         case 24:
             {
                 var s = new Variant24_WorkoutLogBad();
@@ -352,6 +379,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total kcal: {s.Total()}");
                 break;
             }
+
         case 25:
             {
                 var s = new Variant25_FuelStationBad();
@@ -359,6 +387,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total: {s.Calc(f, 30)}");
                 break;
             }
+
         case 26:
             {
                 var s = new Variant26_HikingBad();
@@ -367,6 +396,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Total weight: {s.Total(h)}");
                 break;
             }
+
         case 27:
             {
                 var s = new Variant27_CafeteriaBad();
@@ -374,6 +404,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Monthly: {s.Monthly("Petya", DateTime.Today.Month)}");
                 break;
             }
+
         case 28:
             {
                 var s = new Variant28_RentalBad();
@@ -381,11 +412,12 @@ static void RunVariant(int n)
                 {
                     T = new Variant28_Tool { N = "Drill", Deposit = 5000, PerDay = 600 },
                     Days = 3,
-                    Damaged = false
+                    Damaged = false,
                 };
                 Console.WriteLine($"Total: {s.Calc(r)}");
                 break;
             }
+
         case 29:
             {
                 var s = new Variant29_ZooBad();
@@ -394,6 +426,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Feed: {s.Feed(a, DateTime.Today.AddHours(12))}");
                 break;
             }
+
         case 30:
             {
                 var s = new Variant30_TheaterBad();
@@ -401,6 +434,7 @@ static void RunVariant(int n)
                 Console.WriteLine($"Buy: {s.Buy(p, 3, 5, "parter")}");
                 break;
             }
+
         default:
             Console.WriteLine($"Неизвестный вариант: {n}. Допустимые номера: 1–30.");
             break;
